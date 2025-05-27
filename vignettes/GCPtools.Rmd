@@ -1,0 +1,70 @@
+---
+title: "GCPtools"
+author: "AnVIL Team"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+package: GCPtools
+vignette: >
+  %\VignetteIndexEntry{GCPtools Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# GCPtools
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+has_gcloud <- GCPtools::gcloud_exists()
+options(width = 75)
+```
+
+GCPtools is a package that provides an interface to Google Cloud Platform (GCP)
+tools, primarily the `gcloud` and `gsutil` utilities. It allows users to
+interact with GCP services such as Google Cloud Storage (GCS) and Google Compute
+Engine (GCE) directly from R.
+
+# Installation and Load
+
+You can install the latest version of `GCPtools` from GitHub using the
+following:
+
+```
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Bioconductor/GCPtools")
+```
+
+After installation, you can load the package using:
+
+```{r load-gcp-tools,include=TRUE,results="hide",message=FALSE,warning=FALSE}
+library(GCPtools)
+```
+
+# Usage
+
+The package provides functions to interact with GCP services. For example, you
+can use `gcloud_access_token()` to obtain an access token for a specific
+service. This is currently in use by `AnVIL` and `AnVILGCP` R packages.
+
+```{r gcloud-access-token,eval=FALSE}
+gcloud_access_token("terra")
+```
+
+The `gcloud_exists()` function is used to check if the `gcloud` command line
+utility is available on your system.
+
+```{r gcloud-exists}
+gcloud_exists()
+```
+
+The package also includes functions to manage Google Cloud
+Storage buckets and objects, such as `gsutil_ls()` to list objects in a bucket
+and `gsutil_cp()` to copy files to and from GCS.

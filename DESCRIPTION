@@ -1,0 +1,30 @@
+Package: GCPtools
+Title: Tools for working with gcloud and gsutil
+Version: 0.99.0
+Authors@R: c(
+    person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu", c("aut", "cre")),
+    person("Nitesh", "Turaga", role = "aut"),
+    person("Martin", "Morgan", role = "aut")
+    )
+Description: Lower-level functionality to interface with Google Cloud Platform
+    tools. 'gcloud' and 'gsutil' are both supported. The functionality provided
+    centers around utilities for the AnVIL platform.
+Depends: R (>= 4.5.0)
+Imports:
+    AnVILBase,
+    BiocBaseUtils,
+    dplyr,
+    httr,
+    rlang,
+    tibble,
+    tidyr,
+    utils
+Suggests:
+    BiocStyle,
+    knitr,
+    rmarkdown
+License: Artistic-2.0
+Encoding: UTF-8
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
