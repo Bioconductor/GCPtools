@@ -28,6 +28,8 @@ Suggests:
     knitr,
     rmarkdown
 License: Artistic-2.0
+URL: https://github.com/Bioconductor/GCPtools
+BugReports: https://github.com/Bioconductor/GCPtools/issues
 Encoding: UTF-8
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
