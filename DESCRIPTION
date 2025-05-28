@@ -11,6 +11,7 @@ Authors@R: c(
 Description: Lower-level functionality to interface with Google Cloud Platform
     tools. 'gcloud' and 'gsutil' are both supported. The functionality provided
     centers around utilities for the AnVIL platform.
+biocViews: Software, Infrastructure, ThirdPartyClient, DataImport
 SystemRequirements: gsutil, gcloud
 Depends: R (>= 4.5.0)
 Imports:
