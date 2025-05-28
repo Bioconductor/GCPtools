@@ -368,7 +368,7 @@ gsutil_help <-
 #' @rdname gsutil
 #'
 #' @description `gsutil_pipe()`: create a pipe to read from or write
-#'     to a gooogle bucket object.
+#'     to a Google bucket object.
 #'
 #' @param open `character(1)` either `"r"` (read) or `"w"` (write)
 #'     from the bucket.

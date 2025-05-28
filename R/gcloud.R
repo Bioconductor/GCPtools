@@ -105,7 +105,6 @@ gcloud_runs <- function() {
 #'
 #' @examples
 #' gcloud_exists()
-#'
 #' @export
 gcloud_exists <-
     function()
@@ -148,7 +147,6 @@ gcloud_exists <-
 #'
 #' @examplesIf gcloud_exists()
 #' gcloud_account()
-#'
 #' @export
 gcloud_account <- function(account = NULL) {
     stopifnot(is.null(account) || isScalarCharacter(account))

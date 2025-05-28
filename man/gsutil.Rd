@@ -122,7 +122,7 @@ command or subcommand. Note that only commandes documented on this
 R help page are supported.
 
 \code{gsutil_pipe()}: create a pipe to read from or write
-to a gooogle bucket object.
+to a Google bucket object.
 }
 \details{
 The \code{gsutil} system command is required.  The search for
