@@ -48,7 +48,31 @@ After installation, you can load the package using:
 library(GCPtools)
 ```
 
-# Usage
+# `gcloud` Command Line Utility
+
+## Check for `gcloud` SDK
+
+The `gcloud_exists()` function is used to check if the `gcloud` command line
+utility is available on your system.
+
+```{r gcloud-exists}
+gcloud_exists()
+```
+
+## `gcloud` Help
+
+The package provides a function to display the help for the `gcloud` command
+line utility. This can be useful to understand the available commands and
+options. They can be used in conjunction with `gcloud_cmd()` to run
+specific commands.
+
+
+```{r gcloud_help,eval=has_gcloud}
+gcloud_help() |>
+    head(10L)
+```
+
+## Access Token
 
 The package provides functions to interact with GCP services. For example, you
 can use `gcloud_access_token()` to obtain an access token for a specific
@@ -58,13 +82,84 @@ service. This is currently in use by `AnVIL` and `AnVILGCP` R packages.
 gcloud_access_token("terra")
 ```
 
-The `gcloud_exists()` function is used to check if the `gcloud` command line
-utility is available on your system.
+## Command Execution
 
-```{r gcloud-exists}
-gcloud_exists()
+You can execute `gcloud` commands using the `gcloud_cmd()` function. This
+function allows you to run any `gcloud` command directly from R, making it easy
+to interact with GCP services without leaving the R environment.
+
+```{r gcloud-cmd,eval=has_gcloud}
+gcloud_cmd("version")
+```
+
+## List of available functions
+
+The package provides a variety of functions to interact with GCP services.
+
+* `gcloud_exists()`: tests whether the `gcloud()` command can be found.
+* `gcloud_account()`: report the current gcloud account via ⁠gcloud config
+  get-value account⁠.
+* `gcloud_project()`: report the current gcloud project via ⁠gcloud config
+  get-value project⁠.
+* `gcloud_help()`: queries gcloud for help for a command or sub-comand via
+  ⁠gcloud help ` ...`.
+* `gcloud_cmd()`: `gcloud` command execution via `⁠gcloud ...`. Use pre-defined
+  functions in preference to this.
+* `gcloud_storage()`: `⁠gcloud` storage⁠ command execution via
+  ⁠gcloud storage `...`⁠. Typically used for bucket management commands such as
+  `rm` and `cp`.
+* `gcloud_storage_buckets()`: interface to the `⁠gcloud storage buckets`⁠
+  command. It can create a new bucket via `⁠gcloud storage buckets create ...⁠`.
+
+# `gsutil` Command Line Utility
+
+## Check for `gsutil` resources
+
+The `gsutil_exists()` function checks if a bucket or object exists in Google
+Cloud Storage (GCS).
+
+```{r gsutil-exists,eval=FALSE}
+gsutil_exists("gs://your-bucket-name")
+```
+
+## `gsutil` Help
+
+The `gsutil_help()` function displays the help for the `gsutil` command line
+utility. This can be useful to understand the available commands and options
+and how to use them effectively.
+
+```{r gsutil_help,eval=has_gcloud}
+gsutil_help()
 ```
 
 The package also includes functions to manage Google Cloud
 Storage buckets and objects, such as `gsutil_ls()` to list objects in a bucket
 and `gsutil_cp()` to copy files to and from GCS.
+
+## List of available functions
+
+The package provides a variety of functions to interact with GCS.
+
+* `gsutil_requesterpays()`: does the Google bucket require that the requester
+  pay for access?
+* `gsutil_exists()`: check if the bucket or object exists.
+* `gsutil_stat()`: print, as a side effect, the status of a bucket, directory,
+  or file.
+* `gsutil_rsync()`: synchronize a source and a destination. 
+* `gsutil_cat()`: concatenate bucket objects to standard output
+* `gsutil_help()`: print 'man' page for the `gsutil` command or subcommand.
+* `gsutil_pipe()`: create a pipe to read from or write to a Google bucket object.
+
+# Disclaimer
+
+This package is not an official Google product, nor is it affiliated with or
+endorsed by Google LLC. It is developed and maintained by the AnVIL team to
+provide a convenient interface to GCP tools for R users on the AnVIL platform.
+
+Only the above set of `gcloud` and `gsutil` commands are supported.
+
+# SessionInfo
+
+```{r session-info}
+sessionInfo()
+```
