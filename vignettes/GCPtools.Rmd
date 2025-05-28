@@ -19,8 +19,8 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+    collapse = TRUE,
+    comment = "#>"
 )
 has_gcloud <- GCPtools::gcloud_exists()
 options(width = 75)
@@ -98,18 +98,18 @@ The package provides a variety of functions to interact with GCP services.
 
 * `gcloud_exists()`: tests whether the `gcloud()` command can be found.
 * `gcloud_account()`: report the current gcloud account via ⁠gcloud config
-  get-value account⁠.
-* `gcloud_project()`: report the current gcloud project via ⁠gcloud config
-  get-value project⁠.
+    get-value account⁠.
+* `gcloud_project()`: report the current gcloud project via
+    `⁠gcloud config get-value project`⁠.
 * `gcloud_help()`: queries gcloud for help for a command or sub-comand via
-  ⁠gcloud help ` ...`.
+    `⁠gcloud help ...`.
 * `gcloud_cmd()`: `gcloud` command execution via `⁠gcloud ...`. Use pre-defined
-  functions in preference to this.
+    functions in preference to this.
 * `gcloud_storage()`: `⁠gcloud` storage⁠ command execution via
-  ⁠gcloud storage `...`⁠. Typically used for bucket management commands such as
-  `rm` and `cp`.
+    `⁠gcloud storage ...`⁠. Typically used for bucket management commands such as
+    `rm` and `cp`.
 * `gcloud_storage_buckets()`: interface to the `⁠gcloud storage buckets`⁠
-  command. It can create a new bucket via `⁠gcloud storage buckets create ...⁠`.
+    command. It can create a new bucket via `⁠gcloud storage buckets create ...⁠`.
 
 # `gsutil` Command Line Utility
 
@@ -141,14 +141,15 @@ and `gsutil_cp()` to copy files to and from GCS.
 The package provides a variety of functions to interact with GCS.
 
 * `gsutil_requesterpays()`: does the Google bucket require that the requester
-  pay for access?
+    pay for access?
 * `gsutil_exists()`: check if the bucket or object exists.
 * `gsutil_stat()`: print, as a side effect, the status of a bucket, directory,
-  or file.
+    or file.
 * `gsutil_rsync()`: synchronize a source and a destination. 
 * `gsutil_cat()`: concatenate bucket objects to standard output
 * `gsutil_help()`: print 'man' page for the `gsutil` command or subcommand.
-* `gsutil_pipe()`: create a pipe to read from or write to a Google bucket object.
+* `gsutil_pipe()`: create a pipe to read from or write to a Google bucket
+    object.
 
 # Disclaimer
 
