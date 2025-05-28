@@ -2,9 +2,11 @@ Package: GCPtools
 Title: Tools for working with gcloud and gsutil
 Version: 0.99.0
 Authors@R: c(
-    person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu", c("aut", "cre")),
+    person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu",
+        c("aut", "cre"), c(ORCID = "0000-0002-3242-0582")
+    ),
     person("Nitesh", "Turaga", role = "aut"),
-    person("Martin", "Morgan", role = "aut")
+    person("Martin", "Morgan", , , "aut", c(ORCID = "0000-0002-5874-8148"))
     )
 Description: Lower-level functionality to interface with Google Cloud Platform
     tools. 'gcloud' and 'gsutil' are both supported. The functionality provided
