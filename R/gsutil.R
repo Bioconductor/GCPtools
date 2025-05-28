@@ -195,7 +195,9 @@ gsutil_stat <-
         ) |>
         dplyr::mutate(
             `Creation time` =
-                as.POSIXct(.data$`Creation time`, tz = "GMT", format = tz_format),
+                as.POSIXct(
+                    .data$`Creation time`, tz = "GMT", format = tz_format
+                ),
             `Update time` =
                 as.POSIXct(.data$`Update time`, tz = "GMT", format = tz_format)
         )
