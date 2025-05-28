@@ -58,7 +58,7 @@ NULL
 #'   the given service.
 #'
 #' @examplesIf gcloud_exists()
-#'     gcloud_access_token("rawls") |> invisible()
+#' gcloud_access_token("rawls") |> invisible()
 #' @export
 gcloud_access_token <- local({
     tokens <- new.env(parent = emptyenv())
@@ -147,7 +147,7 @@ gcloud_exists <-
 #' @importFrom BiocBaseUtils isScalarCharacter
 #'
 #' @examplesIf gcloud_exists()
-#'     gcloud_account()
+#' gcloud_account()
 #'
 #' @export
 gcloud_account <- function(account = NULL) {

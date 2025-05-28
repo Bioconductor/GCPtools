@@ -96,6 +96,6 @@ bucket via \verb{gcloud storage buckets create ...}.
 gcloud_exists()
 
 \dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-    gcloud_account()
+gcloud_account()
 \dontshow{\}) # examplesIf}
 }

@@ -69,7 +69,7 @@ NULL
 #'     when requester-pays is enabled.
 #'
 #' @examplesIf gcloud_exists()
-#'     gsutil_requesterpays(src) # FALSE -- no cost download
+#' gsutil_requesterpays(src) # FALSE -- no cost download
 #'
 #' @export
 gsutil_requesterpays <-
@@ -162,6 +162,7 @@ gsutil_exists <-
 #'
 #' @importFrom tidyr pivot_wider
 #' @importFrom rlang .data
+#'
 #' @export
 gsutil_stat <-
     function(source)

@@ -154,7 +154,7 @@ created.
 src <-
   "gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv"
 \dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-    gsutil_requesterpays(src) # FALSE -- no cost download
+gsutil_requesterpays(src) # FALSE -- no cost download
 \dontshow{\}) # examplesIf}
 \dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 gsutil_exists(src)

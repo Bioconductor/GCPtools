@@ -23,6 +23,6 @@ internally by API service functions, e.g., \code{AnVIL::Terra()}
 }
 \examples{
 \dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-    gcloud_access_token("rawls") |> invisible()
+gcloud_access_token("rawls") |> invisible()
 \dontshow{\}) # examplesIf}
 }
