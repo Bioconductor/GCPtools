@@ -38,7 +38,19 @@ NULL
     .gcloud_sdk_do("gsutil", args)
 }
 
-.gsutil_is_uri <-
+#' @rdname gsutil
+#'
+#' @description `gsutil_is_uri()`: check if the source is a valid
+#'     Google Storage URI.
+#'
+#' @param source `character()` for `gsutil_requesterpays()` and
+#'   `gsutil_exists()`: paths to a Google Storage Bucket, possibly with
+#'   wild-cards for file-level pattern matching.
+#'
+#' @importFrom BiocBaseUtils isCharacter
+#'
+#' @export
+gsutil_is_uri <-
     function(source)
 {
     isCharacter(source) & grepl("gs://[^/]+", source)
@@ -59,7 +71,7 @@ gsutil_sh_quote <-
     ## Needed because we also use shQuote() (to allow for spaces in
     ## file names), and shQuote() would otherwise use paths with ~ or
     ## . in the current working directory.
-    is_local <- !.gsutil_is_uri(source)
+    is_local <- !gsutil_is_uri(source)
     source[is_local] <- normalizePath(source[is_local])
     shQuote(source)
 }
@@ -68,10 +80,6 @@ gsutil_sh_quote <-
 #'
 #' @description `gsutil_requesterpays()`: does the google bucket
 #'     require that the requester pay for access?
-#'
-#' @param source `character()` for `gsutil_requesterpays()` and
-#'   `gsutil_exists()`: paths to a Google Storage Bucket, possibly with
-#'   wild-cards for file-level pattern matching.
 #'
 #' @return `gsutil_requesterpays()`: named `logical()` vector TRUE
 #'     when requester-pays is enabled.
@@ -83,7 +91,7 @@ gsutil_sh_quote <-
 gsutil_requesterpays <-
     function(source)
 {
-    stopifnot(all(.gsutil_is_uri(source)))
+    stopifnot(all(gsutil_is_uri(source)))
     project <- gcloud_project()
     buckets <- regmatches(source, regexpr("^gs://[^/]+", source))
     is_enabled <- FALSE
@@ -100,7 +108,7 @@ gsutil_requesterpays <-
 .gsutil_requesterpays_flag <-
     function(source)
 {
-    source <- source[.gsutil_is_uri(source)]
+    source <- source[gsutil_is_uri(source)]
     tryCatch({
         if (length(source) && gsutil_requesterpays(source)) {
             c("-u", gcloud_project())
@@ -146,7 +154,7 @@ gsutil_exists <-
 {
     stopifnot(
         is.character(source), !anyNA(source),
-        .gsutil_is_uri(source)
+        gsutil_is_uri(source)
     )
 
     gsutil <- .gcloud_sdk_find_binary("gsutil")
@@ -175,7 +183,7 @@ gsutil_exists <-
 gsutil_stat <-
     function(source)
 {
-    stopifnot(.gsutil_is_uri(source))
+    stopifnot(gsutil_is_uri(source))
 
     args <- c(.gsutil_requesterpays_flag(source), "stat", shQuote(source))
     result <- .gsutil_do(args)
@@ -272,7 +280,7 @@ gsutil_rsync <-
 {
     stopifnot(
         isScalarCharacter(source), isScalarCharacter(destination),
-        .gsutil_is_uri(source) || .gsutil_is_uri(destination),
+        gsutil_is_uri(source) || gsutil_is_uri(destination),
         is.null(exclude) || isScalarCharacter(exclude),
         isScalarLogical(dry),
         isScalarLogical(delete),
@@ -280,7 +288,7 @@ gsutil_rsync <-
         isScalarLogical(parallel)
     )
     ## if destination is not a google cloud repo, and does not exist
-    if (!dry && !.gsutil_is_uri(destination) && !dir.exists(destination))
+    if (!dry && !gsutil_is_uri(destination) && !dir.exists(destination))
         if (!dir.create(destination))
             stop("'gsutil_rsync()' failed to create '", destination, "'")
 

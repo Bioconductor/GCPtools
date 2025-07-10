@@ -2,6 +2,7 @@
 % Please edit documentation in R/gsutil.R
 \name{gsutil}
 \alias{gsutil}
+\alias{gsutil_is_uri}
 \alias{gsutil_sh_quote}
 \alias{gsutil_requesterpays}
 \alias{gsutil_exists}
@@ -12,6 +13,8 @@
 \alias{gsutil_pipe}
 \title{gsutil command line utility interface}
 \usage{
+gsutil_is_uri(source)
+
 gsutil_sh_quote(source)
 
 gsutil_requesterpays(source)
@@ -103,6 +106,9 @@ input as \code{read.csv()})
 These functions invoke the \code{gsutil} command line
 utility. See the "Details:" section if you have gsutil
 installed but the package cannot find it.
+
+\code{gsutil_is_uri()}: check if the source is a valid
+Google Storage URI.
 
 \code{gsutil_sh_quote()}: quote a character vector for
 use in a shell command. This is useful to ensure that file
