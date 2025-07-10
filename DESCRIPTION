@@ -1,6 +1,7 @@
 Package: GCPtools
 Title: Tools for working with gcloud and gsutil
-Version: 0.99.0
+Version: 0.99.1
+Date: 2025-07-10
 Authors@R: c(
     person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu",
         c("aut", "cre"), c(ORCID = "0000-0002-3242-0582")
