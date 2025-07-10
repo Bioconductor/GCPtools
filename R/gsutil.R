@@ -44,7 +44,15 @@ NULL
     isCharacter(source) & grepl("gs://[^/]+", source)
 }
 
-.gsutil_sh_quote <-
+#' @rdname gsutil
+#'
+#' @description `gsutil_sh_quote()`: quote a character vector for
+#'   use in a shell command. This is useful to ensure that file
+#'   names with spaces or other special characters are handled
+#'   correctly.
+#'
+#' @export
+gsutil_sh_quote <-
     function(source)
 {
     ## Expand local paths with ~ or . or .. to full path names.
@@ -287,8 +295,8 @@ gsutil_rsync <-
         if (delete) "-d",
         if (recursive) "-r",
         ...,
-        .gsutil_sh_quote(source),
-        .gsutil_sh_quote(destination)
+        gsutil_sh_quote(source),
+        gsutil_sh_quote(destination)
     )
     result <- .gsutil_do(args)
     .gcloud_sdk_result(result)

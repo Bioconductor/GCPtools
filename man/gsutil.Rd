@@ -2,6 +2,7 @@
 % Please edit documentation in R/gsutil.R
 \name{gsutil}
 \alias{gsutil}
+\alias{gsutil_sh_quote}
 \alias{gsutil_requesterpays}
 \alias{gsutil_exists}
 \alias{gsutil_stat}
@@ -11,6 +12,8 @@
 \alias{gsutil_pipe}
 \title{gsutil command line utility interface}
 \usage{
+gsutil_sh_quote(source)
+
 gsutil_requesterpays(source)
 
 gsutil_exists(source)
@@ -100,6 +103,11 @@ input as \code{read.csv()})
 These functions invoke the \code{gsutil} command line
 utility. See the "Details:" section if you have gsutil
 installed but the package cannot find it.
+
+\code{gsutil_sh_quote()}: quote a character vector for
+use in a shell command. This is useful to ensure that file
+names with spaces or other special characters are handled
+correctly.
 
 \code{gsutil_requesterpays()}: does the google bucket
 require that the requester pay for access?
