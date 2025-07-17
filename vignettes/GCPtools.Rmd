@@ -142,6 +142,8 @@ The package provides a variety of functions to interact with GCS.
 
 * `gsutil_requesterpays()`: does the Google bucket require that the requester
     pay for access?
+* `gsutil_requesterpays_flag()`: return the `-u <gcloud_project>` flag
+    if the bucket requires that the requester pay for access.
 * `gsutil_exists()`: check if the bucket or object exists.
 * `gsutil_stat()`: print, as a side effect, the status of a bucket, directory,
     or file.
