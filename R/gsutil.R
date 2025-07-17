@@ -105,14 +105,26 @@ gsutil_requesterpays <-
     is_enabled
 }
 
-.gsutil_requesterpays_flag <-
+#' @rdname gsutil
+#'
+#' @description `gsutil_requesterpays_flag()`: return the `-u <project>` flag
+#'   for the `gsutil` command if the source requires that the requester pays
+#'   for access.
+#'
+#' @return `gsutil_requesterpays_flag()`: `character()` vector of
+#'   `"-u <gcloud_project>"` if the source requires that the requester pays
+#'   for access, or `NULL` if otherwise.
+#'
+#' @export
+gsutil_requesterpays_flag <-
     function(source)
 {
     source <- source[gsutil_is_uri(source)]
     tryCatch({
-        if (length(source) && gsutil_requesterpays(source)) {
+        if (length(source) && gsutil_requesterpays(source))
             c("-u", gcloud_project())
-        } else NULL
+        else
+            NULL
     }, error = function(e) {
         ## this was originally written to return NULL without a
         ## warning, but I'm not sure whether we cannot just stop()?
@@ -129,7 +141,7 @@ gsutil_requesterpays <-
     function(source, gsutil)
 {
     args <- c(
-        .gsutil_requesterpays_flag(source),
+        gsutil_requesterpays_flag(source),
         "ls",
         shQuote(source)
     )
@@ -185,7 +197,7 @@ gsutil_stat <-
 {
     stopifnot(gsutil_is_uri(source))
 
-    args <- c(.gsutil_requesterpays_flag(source), "stat", shQuote(source))
+    args <- c(gsutil_requesterpays_flag(source), "stat", shQuote(source))
     result <- .gsutil_do(args)
 
     ## omit nested 'metadata', for convenience
@@ -294,7 +306,7 @@ gsutil_rsync <-
 
     ## rsync operation
     args <- c(
-        .gsutil_requesterpays_flag(source),
+        gsutil_requesterpays_flag(source),
         ##  -m option, to perform parallel (multi-threaded/multi-processing)
         if (parallel) "-m",
         "rsync",
@@ -344,7 +356,7 @@ gsutil_cat <-
     }
 
     args <- c(
-        .gsutil_requesterpays_flag(source),
+        gsutil_requesterpays_flag(source),
         "cat",
         if (header) "-h",
         if (length(range)) c("-r", range),
@@ -413,7 +425,7 @@ gsutil_pipe <-
 
     is_read <- identical(substr(open, 1, 1), "r")
     args <- c(
-        if (is_read) .gsutil_requesterpays_flag(source),
+        if (is_read) gsutil_requesterpays_flag(source),
         "cp",
         ...,
         if (is_read) c(shQuote(source), "-") else c("-", shQuote(source))

@@ -5,6 +5,7 @@
 \alias{gsutil_is_uri}
 \alias{gsutil_sh_quote}
 \alias{gsutil_requesterpays}
+\alias{gsutil_requesterpays_flag}
 \alias{gsutil_exists}
 \alias{gsutil_stat}
 \alias{gsutil_rsync}
@@ -18,6 +19,8 @@ gsutil_is_uri(source)
 gsutil_sh_quote(source)
 
 gsutil_requesterpays(source)
+
+gsutil_requesterpays_flag(source)
 
 gsutil_exists(source)
 
@@ -86,6 +89,10 @@ from the bucket.}
 \code{gsutil_requesterpays()}: named \code{logical()} vector TRUE
 when requester-pays is enabled.
 
+\code{gsutil_requesterpays_flag()}: \code{character()} vector of
+\code{"-u <gcloud_project>"} if the source requires that the requester pays
+for access, or \code{NULL} if otherwise.
+
 \code{gsutil_exists()}: logical(1) TRUE if bucket or object exists.
 
 \code{gsutil_stat()}: \code{tibble()} summarizing status of each
@@ -117,6 +124,10 @@ correctly.
 
 \code{gsutil_requesterpays()}: does the google bucket
 require that the requester pay for access?
+
+\code{gsutil_requesterpays_flag()}: return the \verb{-u <project>} flag
+for the \code{gsutil} command if the source requires that the requester pays
+for access.
 
 \code{gsutil_exists()}: check if the bucket or object
 exists.
