@@ -12,6 +12,8 @@
 \alias{gsutil_cat}
 \alias{gsutil_help}
 \alias{gsutil_pipe}
+\alias{gsutil_ls}
+\alias{gsutil_cp}
 \title{gsutil command line utility interface}
 \usage{
 gsutil_is_uri(source)
@@ -42,10 +44,15 @@ gsutil_cat(source, ..., header = FALSE, range = integer())
 gsutil_help(cmd = character(0))
 
 gsutil_pipe(source, open = "r", ...)
+
+gsutil_ls(source = character(), ..., recursive = FALSE)
+
+gsutil_cp(source, destination, ..., recursive = FALSE, parallel = TRUE)
 }
 \arguments{
-\item{source}{\code{character(1)} paths to a google storage bucket, possibly with
-wild-cards for file-level pattern matching.}
+\item{source}{\code{character(1)}, (\code{character()} for \code{gsutil_requesterpays()},
+\code{gsutil_ls()}, \code{gsutil_exists()}, \code{gsutil_cp()}): paths to a Google Storage
+Bucket, possibly with wild-cards for file-level pattern matching.}
 
 \item{destination}{\code{character(1)} google cloud bucket or local file system
 destination path.}
@@ -108,6 +115,10 @@ bucket member.
 \emph{not} specified, and the pipe must be used in the
 appropriate context (e.g., a pipe created with \code{open = "r"} for
 input as \code{read.csv()})
+
+\code{gsutil_ls()}: \code{character()} listing of \code{source} content.
+
+\code{gsutil_cp()}: exit status of \code{gsutil_cp()}, invisibly.
 }
 \description{
 These functions invoke the \code{gsutil} command line
@@ -148,6 +159,15 @@ R help page are supported.
 
 \code{gsutil_pipe()}: create a pipe to read from or write
 to a Google bucket object.
+
+\code{gsutil_ls()}: List contents of a google cloud bucket
+or, if \code{source} is missing, all Cloud Storage buckets under your
+default project ID
+
+\code{gsutil_cp()}: copy contents of \code{source} to
+\code{destination}. At least one of \code{source} or \code{destination} must
+be Google cloud bucket; \code{source} can be a character vector with
+length greater than 1. Use \code{gsutil_help("cp")} for \code{gsutil} help.
 }
 \details{
 The \code{gsutil} system command is required.  The search for
@@ -193,5 +213,12 @@ df <- read.csv(gsutil_pipe(src), 5L)
 class(df)
 dim(df)
 head(df)
+\dontshow{\}) # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
+  gsutil_cp(src, tempdir())
+  ## gsutil_*() commands work with spaces in the source or destination
+  destination <- file.path(tempdir(), "foo bar")
+  gsutil_cp(src, destination)
+  file.exists(destination)
 \dontshow{\}) # examplesIf}
 }

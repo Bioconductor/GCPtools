@@ -43,9 +43,9 @@ NULL
 #' @description `gsutil_is_uri()`: check if the source is a valid
 #'     Google Storage URI.
 #'
-#' @param source `character()` for `gsutil_requesterpays()` and
-#'   `gsutil_exists()`: paths to a Google Storage Bucket, possibly with
-#'   wild-cards for file-level pattern matching.
+#' @param source `character(1)`, (`character()` for `gsutil_requesterpays()`,
+#'   `gsutil_ls()`, `gsutil_exists()`, `gsutil_cp()`): paths to a Google Storage
+#'   Bucket, possibly with wild-cards for file-level pattern matching.
 #'
 #' @importFrom BiocBaseUtils isCharacter
 #'
@@ -237,9 +237,6 @@ gsutil_stat <-
 #'     destination. If the destination is on the local file system, it
 #'     must be a directory or not yet exist (in which case a directory
 #'     will be created).
-#'
-#' @param source `character(1)` paths to a google storage bucket, possibly with
-#'   wild-cards for file-level pattern matching.
 #'
 #' @param destination `character(1)` google cloud bucket or local file system
 #'   destination path.
@@ -436,4 +433,72 @@ gsutil_pipe <-
 
     cmd <- paste(c(bin, args), collapse = " ")
     pipe(cmd, open)
+}
+
+#' @rdname gsutil
+#'
+#' @description `gsutil_ls()`: List contents of a google cloud bucket
+#'   or, if `source` is missing, all Cloud Storage buckets under your
+#'   default project ID
+#'
+#' @return `gsutil_ls()`: `character()` listing of `source` content.
+#'
+#' @export
+gsutil_ls <-
+    function(source = character(), ..., recursive = FALSE)
+{
+    stopifnot(
+        gsutil_is_uri(source),
+        isScalarLogical(recursive)
+    )
+
+    args <- c(
+        gsutil_requesterpays_flag(source),
+        "ls",
+        if (recursive) "-r",
+        ...,
+        shQuote(source)
+    )
+    result <- .gsutil_do(args)
+    result[nzchar(result) & !endsWith(result, ":")]
+}
+
+#' @rdname gsutil
+#'
+#' @description `gsutil_cp()`: copy contents of `source` to
+#'   `destination`. At least one of `source` or `destination` must
+#'   be Google cloud bucket; `source` can be a character vector with
+#'   length greater than 1. Use `gsutil_help("cp")` for `gsutil` help.
+#'
+#' @return `gsutil_cp()`: exit status of `gsutil_cp()`, invisibly.
+#'
+#' @examplesIf gcloud_exists()
+#'   gsutil_cp(src, tempdir())
+#'   ## gsutil_*() commands work with spaces in the source or destination
+#'   destination <- file.path(tempdir(), "foo bar")
+#'   gsutil_cp(src, destination)
+#'   file.exists(destination)
+#' @export
+gsutil_cp <-
+    function(source, destination, ..., recursive = FALSE, parallel = TRUE)
+{
+    location <- c(source, destination)
+    location_is_uri <- gsutil_is_uri(location)
+    stopifnot(
+        isCharacter(source), isScalarCharacter(destination),
+        any(location_is_uri),
+        isScalarLogical(recursive), isScalarLogical(parallel)
+    )
+
+    args <- c(
+        gsutil_requesterpays_flag(location),
+        if (parallel) "-m", ## Makes the operations faster
+        "cp", ## cp command
+        if (recursive) "-r",
+        ...,
+        gsutil_sh_quote(source),
+        gsutil_sh_quote(destination)
+    )
+    result <- .gsutil_do(args)
+    .gcloud_sdk_result(result)
 }
