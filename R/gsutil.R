@@ -502,3 +502,38 @@ gsutil_cp <-
     result <- .gsutil_do(args)
     .gcloud_sdk_result(result)
 }
+
+#' @rdname gsutil
+#'
+#' @description `gsutil_rm()`: remove contents of a google cloud
+#'     bucket.
+#'
+#' @param force `logical(1)`: continue silently despite errors when
+#'     removing multiple objects. Default: `FALSE`.
+#'
+#' @return `gsutil_rm()`: exit status of `gsutil_rm()`, invisibly.
+#'
+#' @export
+gsutil_rm <-
+    function(source, ..., force = FALSE, recursive = FALSE, parallel = TRUE)
+{
+    stopifnot(
+        gsutil_is_uri(source),
+        isScalarLogical(force),
+        isScalarLogical(recursive),
+        isScalarLogical(parallel)
+    )
+
+    ## remove
+    args <- c(
+        gsutil_requesterpays_flag(source),
+        if (parallel) "-m",
+        "rm",
+        if (force) "-f",
+        if (recursive) "-r",
+        ...,
+        shQuote(source)
+    )
+    result <- .gsutil_do(args)
+    .gcloud_sdk_result(result)
+}

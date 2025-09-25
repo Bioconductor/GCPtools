@@ -14,6 +14,7 @@
 \alias{gsutil_pipe}
 \alias{gsutil_ls}
 \alias{gsutil_cp}
+\alias{gsutil_rm}
 \title{gsutil command line utility interface}
 \usage{
 gsutil_is_uri(source)
@@ -48,6 +49,8 @@ gsutil_pipe(source, open = "r", ...)
 gsutil_ls(source = character(), ..., recursive = FALSE)
 
 gsutil_cp(source, destination, ..., recursive = FALSE, parallel = TRUE)
+
+gsutil_rm(source, ..., force = FALSE, recursive = FALSE, parallel = TRUE)
 }
 \arguments{
 \item{source}{\code{character(1)}, (\code{character()} for \code{gsutil_requesterpays()},
@@ -91,6 +94,9 @@ concatenation from the start (first position) or to the end
 
 \item{open}{\code{character(1)} either \code{"r"} (read) or \code{"w"} (write)
 from the bucket.}
+
+\item{force}{\code{logical(1)}: continue silently despite errors when
+removing multiple objects. Default: \code{FALSE}.}
 }
 \value{
 \code{gsutil_requesterpays()}: named \code{logical()} vector TRUE
@@ -119,6 +125,8 @@ input as \code{read.csv()})
 \code{gsutil_ls()}: \code{character()} listing of \code{source} content.
 
 \code{gsutil_cp()}: exit status of \code{gsutil_cp()}, invisibly.
+
+\code{gsutil_rm()}: exit status of \code{gsutil_rm()}, invisibly.
 }
 \description{
 These functions invoke the \code{gsutil} command line
@@ -168,6 +176,9 @@ default project ID
 \code{destination}. At least one of \code{source} or \code{destination} must
 be Google cloud bucket; \code{source} can be a character vector with
 length greater than 1. Use \code{gsutil_help("cp")} for \code{gsutil} help.
+
+\code{gsutil_rm()}: remove contents of a google cloud
+bucket.
 }
 \details{
 The \code{gsutil} system command is required.  The search for
