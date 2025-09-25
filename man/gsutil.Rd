@@ -198,17 +198,17 @@ created.
 \examples{
 src <-
   "gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv"
-\dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 gsutil_requesterpays(src) # FALSE -- no cost download
 \dontshow{\}) # examplesIf}
-\dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 gsutil_exists(src)
 gsutil_stat(src)
 \dontshow{\}) # examplesIf}
-\dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 gsutil_help("ls")
 \dontshow{\}) # examplesIf}
-\dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 df <- read.csv(gsutil_pipe(src), 5L)
 class(df)
 dim(df)

@@ -22,7 +22,7 @@ line utility for the given \code{gcloud_account()}. The function is mainly used
 internally by API service functions, e.g., \code{AnVIL::Terra()}
 }
 \examples{
-\dontshow{if (gcloud_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 gcloud_access_token("rawls") |> invisible()
 \dontshow{\}) # examplesIf}
 }
