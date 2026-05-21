@@ -184,12 +184,12 @@ gsutil_exists <-
 #' @return `gsutil_stat()`: `tibble()` summarizing status of each
 #'     bucket member.
 #'
+#' @importFrom tidyr pivot_wider
+#' @importFrom rlang .data
+#'
 #' @examplesIf gcloud_exists()
 #' gsutil_exists(src)
 #' gsutil_stat(src)
-#'
-#' @importFrom tidyr pivot_wider
-#' @importFrom rlang .data
 #'
 #' @export
 gsutil_stat <-
