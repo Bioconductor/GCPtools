@@ -53,7 +53,7 @@ NULL
 gsutil_is_uri <-
     function(source)
 {
-    isCharacter(source) & grepl("gs://[^/]+", source)
+    isCharacter(source) & grepl("^gs://[^/]+", source)
 }
 
 #' @rdname gsutil
