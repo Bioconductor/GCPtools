@@ -27,8 +27,12 @@
 #'     `~/google-cloud-sdk`.
 #'
 #' @examples
-#' src <-
-#'   "gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv"
+#' ## use a truly public dataset for testing
+#' src <- paste0(
+#'   "gs://gcp-public-data-landsat/",
+#'   "LC08/01/001/002/LC08_L1GT_001002_20160902_20170321_01_T2/",
+#'   "LC08_L1GT_001002_20160902_20170321_01_T2_MTL.txt"
+#' )
 NULL
 
 ## evaluate the gsutil command and arguments in `args`
@@ -403,13 +407,12 @@ gsutil_help <-
 #' @return `gsutil_pipe()` an unopened R `pipe()`; the mode is
 #'     \emph{not} specified, and the pipe must be used in the
 #'     appropriate context (e.g., a pipe created with `open = "r"` for
-#'     input as `read.csv()`)
+#'     input as `readLines()`)
 #'
 #' @examplesIf gcloud_exists()
-#' df <- read.csv(gsutil_pipe(src), 5L)
-#' class(df)
-#' dim(df)
-#' head(df)
+#' lines <- readLines(gsutil_pipe(src))
+#' length(lines)
+#' head(lines)
 #'
 #' @export
 gsutil_pipe <-

@@ -120,7 +120,7 @@ bucket member.
 \code{gsutil_pipe()} an unopened R \code{pipe()}; the mode is
 \emph{not} specified, and the pipe must be used in the
 appropriate context (e.g., a pipe created with \code{open = "r"} for
-input as \code{read.csv()})
+input as \code{readLines()})
 
 \code{gsutil_ls()}: \code{character()} listing of \code{source} content.
 
@@ -207,8 +207,12 @@ If \code{destination} is a local path and does not exist, it will be
 created.
 }
 \examples{
-src <-
-  "gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv"
+## use a truly public dataset for testing
+src <- paste0(
+  "gs://gcp-public-data-landsat/",
+  "LC08/01/001/002/LC08_L1GT_001002_20160902_20170321_01_T2/",
+  "LC08_L1GT_001002_20160902_20170321_01_T2_MTL.txt"
+)
 \dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
 gsutil_requesterpays(src) # FALSE -- no cost download
 \dontshow{\}) # examplesIf}
@@ -220,10 +224,9 @@ gsutil_stat(src)
 gsutil_help("ls")
 \dontshow{\}) # examplesIf}
 \dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
-df <- read.csv(gsutil_pipe(src), 5L)
-class(df)
-dim(df)
-head(df)
+lines <- readLines(gsutil_pipe(src))
+length(lines)
+head(lines)
 \dontshow{\}) # examplesIf}
 \dontshow{if (gcloud_exists()) withAutoprint(\{ # examplesIf}
   gsutil_cp(src, tempdir())
