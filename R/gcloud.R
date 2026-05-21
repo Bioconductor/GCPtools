@@ -21,8 +21,8 @@
     ## involved in the POST and result parsing.
     response <- POST(
         "https://www.googleapis.com/oauth2/v1/tokeninfo",
-        content_type("application/x-www-form-urlencoded"),
-        body = paste0("access_token=", token)
+        encode = "form",
+        body = list(access_token = token)
     )
     avstop_for_status(response, ".gcloud_access_token_expires")
     expires <- now + content(response)$expires_in
