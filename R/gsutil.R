@@ -425,13 +425,14 @@ gsutil_pipe <-
         if (is_read) gsutil_requesterpays_flag(source),
         "cp",
         ...,
-        if (is_read) c(shQuote(source), "-") else c("-", shQuote(source))
+        if (is_read) c(source, "-") else c("-", source)
     )
+    args <- vapply(args, shQuote, character(1L))
 
     bin <- .gcloud_sdk_find_binary("gsutil")
     stopifnot(file.exists(bin))
 
-    cmd <- paste(c(bin, args), collapse = " ")
+    cmd <- paste(c(shQuote(bin), args), collapse = " ")
     pipe(cmd, open)
 }
 
