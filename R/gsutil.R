@@ -307,7 +307,7 @@ gsutil_rsync <-
         ##  -m option, to perform parallel (multi-threaded/multi-processing)
         if (parallel) "-m",
         "rsync",
-        if (length(exclude)) paste0('-x "', exclude, '"'),
+        if (length(exclude)) c("-x", shQuote(exclude)),
         if (dry) "-n",
         if (delete) "-d",
         if (recursive) "-r",
