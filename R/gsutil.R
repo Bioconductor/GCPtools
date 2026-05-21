@@ -98,7 +98,7 @@ gsutil_requesterpays <-
     for (bucket in buckets) {
         args <- c("-u", project, "requesterpays", "get", bucket)
         result <- .gsutil_do(args)
-        is_enabled <- endsWith(result, "Enabled")
+        is_enabled <- any(endsWith(result, "Enabled"))
         if (is_enabled)
             break
     }
