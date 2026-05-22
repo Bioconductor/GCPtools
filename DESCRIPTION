@@ -14,7 +14,7 @@ Description: Lower-level functionality to interface with Google Cloud Platform
     centers around utilities for the AnVIL platform.
 biocViews: Software, Infrastructure, ThirdPartyClient, DataImport
 SystemRequirements: gsutil, gcloud
-Depends: R (>= 4.5.0)
+Depends: R (>= 4.6.0)
 Imports:
     AnVILBase,
     BiocBaseUtils,
