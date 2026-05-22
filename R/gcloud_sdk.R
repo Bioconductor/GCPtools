@@ -99,10 +99,14 @@ print.gcloud_sdk_result <-
     })
 
     if (!is.null(attr(value, "status"))) {
+        errmsg <- attr(value, "errmsg")
+        if (!is.null(errmsg) && nzchar(errmsg))
+            errmsg <- paste0("\n  condition message: ", errmsg)
         msg <- paste0(
             "'", command, " ", paste(args, collapse = " "), "' failed:",
             "\n  ", paste(as.vector(value), collapse = "\n    "),
-            "\n  exit status: ", attr(value, "status")
+            "\n  exit status: ", attr(value, "status"),
+            errmsg
         )
         stop(msg, call. = FALSE)
     }
